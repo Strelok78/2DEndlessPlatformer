@@ -13,8 +13,6 @@ public class PlayermMovement : MonoBehaviour
     private SpriteRenderer _spriteRenderer;
     private Rigidbody2D _rigidbody2d;
 
-    public event UnityAction<float> OnPlayerMoving;
-
     private void Start()
     {
         _spriteRenderer = GetComponent<SpriteRenderer>();
@@ -35,7 +33,6 @@ public class PlayermMovement : MonoBehaviour
     {
         _spriteRenderer.flipX = direction.x < 0;
         transform.Translate(direction * _speed * Time.deltaTime);
-        OnPlayerMoving?.Invoke(direction.x);
     }
 
     private void Jump()
