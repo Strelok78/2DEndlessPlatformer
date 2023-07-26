@@ -5,7 +5,7 @@ using UnityEngine.Events;
 
 [RequireComponent(typeof(SpriteRenderer))]
 [RequireComponent(typeof(Rigidbody2D))]
-[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(CapsuleCollider2D))]
 public class PlayermMovement : MonoBehaviour
 {
     [SerializeField] float _speed;
@@ -38,6 +38,9 @@ public class PlayermMovement : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space) && IsGrounded())
             Jump();
+
+        if (!IsGrounded())
+            OnMovementMade?.Invoke("Jump");
     }
 
     private void Move(Vector2 direction)
@@ -46,13 +49,14 @@ public class PlayermMovement : MonoBehaviour
             OnMovementMade?.Invoke("Run");
 
         _spriteRenderer.flipX = direction.x < 0;
+        _collider.offset = _spriteRenderer.flipX ? new Vector2 (0.1f, 0) : new Vector2(-0.1f, 0);
         transform.Translate(direction * _speed * Time.deltaTime);
     }
 
     private void Jump()
     {
         _rigidbody2d.velocity = Vector2.up * _jumpForce;
-        OnMovementMade?.Invoke("Jump"); //перебивается бегом + добавить бы для падения эту анимацю возможно...
+        OnMovementMade?.Invoke("Jump");
     }
 
     private bool IsGrounded()

@@ -29,7 +29,6 @@ public class PlayerAnimation : MonoBehaviour
 
     private void MakeAnimation(string animationName)
     {
-        Debug.Log(animationName);
         _animator.Play(animationName);
     }
 }
