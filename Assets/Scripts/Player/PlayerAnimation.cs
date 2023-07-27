@@ -8,8 +8,6 @@ public class PlayerAnimation : MonoBehaviour
     [SerializeField] private PlayermMovement _playerMovement;
 
     private Animator _animator;
-    private Animation _animation;
-    private string _previousAnimationName;
 
     private void OnEnable()
     {
@@ -24,7 +22,6 @@ public class PlayerAnimation : MonoBehaviour
     private void Start()
     {
         _animator = GetComponent<Animator>();
-        _animation = GetComponent<Animation>();
     }
 
     private void MakeAnimation(string animationName)
