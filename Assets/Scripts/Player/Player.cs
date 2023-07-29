@@ -8,4 +8,6 @@ public class Player : MonoBehaviour
 
     private int _coin;
     private int _health;
+
+
 }
