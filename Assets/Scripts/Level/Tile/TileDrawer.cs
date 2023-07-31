@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.Tilemaps;
 
 public class TileDrawer : MonoBehaviour //надо упростить или разбить на 2 доп скрипта (water и ground)
@@ -23,6 +24,8 @@ public class TileDrawer : MonoBehaviour //надо упростить или разбить на 2 доп ск
     private Queue<Vector3Int> _groundPositionContainer;
     private int _furtherPositionX;
     private int _currentPositionY;
+
+    public event UnityAction<Vector3Int, int> OnTileCreated;
 
     private void Start()
     {
@@ -50,9 +53,12 @@ public class TileDrawer : MonoBehaviour //надо упростить или разбить на 2 доп ск
 
     private void DrawPlatform(int platformLength)
     {
+        Debug.Log("До: " + platformLength);
+
         if (_currentPositionY > 0)
         {
             platformLength = Mathf.Max(platformLength, 2);
+            Debug.Log("После: " + platformLength);
 
             DrawWater(platformLength);
             _furtherPositionX -= (platformLength);
@@ -78,6 +84,8 @@ public class TileDrawer : MonoBehaviour //надо упростить или разбить на 2 доп ск
 
         for (int i = 0; i < tilesCount; i++)
         {
+            Debug.Log("tilesCount in DrawTile: " + tilesCount);
+
             Vector3Int tileLocation = new(_furtherPositionX++, positionY);
 
             if (isGround)
@@ -86,6 +94,8 @@ public class TileDrawer : MonoBehaviour //надо упростить или разбить на 2 доп ск
 
                 if (tileLocation.y != 0)
                     _groundPositionContainer.Enqueue(tileLocation);
+
+                OnTileCreated?.Invoke(tileLocation, tilesCount);
             }
             else
             {
@@ -124,8 +134,6 @@ public class TileDrawer : MonoBehaviour //надо упростить или разбить на 2 доп ск
         _tilemapWater.SetTile(location, null);
 
         if (_groundPositionContainer.Peek().x <= (int)_destroyer.transform.position.x)
-        {
             _tilemapGround.SetTile(_groundPositionContainer.Dequeue(), null);
-        }
     }
 }

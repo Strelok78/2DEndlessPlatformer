@@ -1,19 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
+using UnityEngine.Events;
 
+[RequireComponent(typeof(CircleCollider2D))]
 public class Coin : MonoBehaviour
 {
-    private Animator _animator;
+    [SerializeField] private int _coinValue;
 
-    private void Start()
-    {
-        _animator = GetComponent<Animator>();
-        _animator.Play("");
-    }
-
-    public Coin(Vector2 position)
-    {
-        transform.position = position;
-    }
+    public int CoinValue => _coinValue;
 }

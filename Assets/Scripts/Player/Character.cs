@@ -40,5 +40,7 @@ public class Character : MonoBehaviour
     private void Death()
     {
         OnActionDone?.Invoke("Death");
+        Debug.Log("Died");
+        Destroy(gameObject);
     }
 }
