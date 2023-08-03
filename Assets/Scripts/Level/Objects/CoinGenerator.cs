@@ -16,15 +16,15 @@ public class CoinGenerator : MonoBehaviour
         _coins = new Queue<GameObject>();
     }
 
-    private void OnEnable()
-    {
-        _tileDrawer.OnTileCreated += GenerateCoin;
-    }
+    //private void OnEnable()
+    //{
+    //    _tileDrawer.OnTileCreated += GenerateCoin;
+    //}
 
-    private void OnDisable()
-    {
-        _tileDrawer.OnTileCreated -= GenerateCoin;
-    }
+    //private void OnDisable()
+    //{
+    //    _tileDrawer.OnTileCreated -= GenerateCoin;
+    //}
 
     private void GenerateCoin(Vector3Int tilePosition, int tileLength) //мб добавить ранддомайзер который решает создавать
                                                                        //над тайлом моентку или нет, чтобы уменьшить их кол-во
