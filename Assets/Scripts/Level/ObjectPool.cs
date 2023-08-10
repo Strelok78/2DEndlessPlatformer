@@ -23,6 +23,14 @@ public class ObjectPool : MonoBehaviour
         }
     }
 
+    protected void IncludeStartObjects(GameObject preFilledPool)
+    {
+        for (int i = 0; i < preFilledPool.transform.childCount; i++)
+        {
+            _pool.Add(preFilledPool.transform.GetChild(i).gameObject);
+        }
+    }
+
     protected bool TryGetObject(out GameObject result)
     {
         result = _pool.FirstOrDefault(p => p.activeSelf == false);
